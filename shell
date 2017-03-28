@@ -1,0 +1,6 @@
+#! /bin/bash
+pkill python
+echo $i
+python main.py&
+
+
