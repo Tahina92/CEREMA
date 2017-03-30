@@ -26,6 +26,7 @@ class Detection(Thread):
 		
 	def run(self):
 		self.__condition.acquire()
+<<<<<<< HEAD
 		self.__keep_running.isSet
 		while self.__keep_running.isSet:
 			nearby_devices = bluetooth.discover_devices(duration=self.__delais, lookup_names=True, flush_cache= True, lookup_class=False)
@@ -42,6 +43,18 @@ class Detection(Thread):
 		self.get()
 		print("Exit")
 	
+=======
+		while self.__keep_running.isSet:
+			nearby_devices = bluetooth.discover_devices(duration=self.delais, lookup_names=True, flush_cache= True, lookup_class=False)
+			print(nearby_devices)
+			self.__publish(nearby_devices)
+		self.__condition.release()
+		
+		
+	def stop(self):
+		self.__keep_running.clear()
+		break
+>>>>>>> 757cb168ccaee32f2095e12ee951b512573f22d8
 		
 		
 
@@ -57,6 +70,7 @@ if __name__ == '__main__' :
 		json_value['Message'] = str(message)
 		mqtts.publish("/id_arc_OSM/value", json.dumps(json_value))
 	
+<<<<<<< HEAD
 	def deconnection(signal, frame):
 		print("Exit")
 		mqtts.disconnect()
@@ -66,6 +80,14 @@ if __name__ == '__main__' :
 	detection = Detection(1,on_value)
 	detection.start()
 	signal.signal(signal.SIGINT, deconnection)  # Ctrl-c
+=======
+	def stop_handler(signal, frame):
+		detection.stop()
+		
+	detection = Detection(1,on_value)
+	detection.start()
+	signal.signal(signal.SIGINT, stop_handler)  # Ctrl-c
+>>>>>>> 757cb168ccaee32f2095e12ee951b512573f22d8
 	
 	#Mise en connexion avec le serveur
 	mqtts = paho.Client()
