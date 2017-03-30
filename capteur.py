@@ -54,7 +54,6 @@ class Detection(Thread):
 	def stop(self):
 		self.__keep_running.clear()
 		break
->>>>>>> 757cb168ccaee32f2095e12ee951b512573f22d8
 		
 		
 
