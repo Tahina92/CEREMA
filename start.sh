@@ -6,7 +6,5 @@
 pkill python3
 pkill python
 
-declare -i x=0
-
-echo $i
-python3 capteur.py&
+echo -e "\n **** Starting bash ****\n"
+python3 main_programme.py
